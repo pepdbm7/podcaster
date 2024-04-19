@@ -1,8 +1,8 @@
-import { Podcast, PodcastEntry } from "./api.types";
+import { Podcast, MappedPodcastEntry } from "./api.types";
 
 export interface LocalStoragePodcasts {
   timestamp: number;
-  podcasts: PodcastEntry[];
+  podcasts: MappedPodcastEntry[];
 }
 
 export interface StoragePodcastDetails {

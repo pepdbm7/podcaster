@@ -5,7 +5,7 @@ import { HOME_PATH, PODCAST_PATH, EPISODE_PATH } from "./consts/routes";
 import Home from "./components/home/Home";
 import Podcast from "./components/podcast/Podcast";
 import Episode from "./components/episode/Episode";
-import { PodcastEntry } from "./utils/api.types";
+import { MappedPodcastEntry } from "./utils/api.types";
 
 export interface ILoaderContext {
   showLoader: boolean;
@@ -13,20 +13,20 @@ export interface ILoaderContext {
 }
 export const LoaderContext = createContext<ILoaderContext | null>(null);
 export interface IFilterContext {
-  initialList: PodcastEntry[];
-  setInitialList: (podcasts: PodcastEntry[]) => void;
+  initialList: MappedPodcastEntry[];
+  setInitialList: (podcasts: MappedPodcastEntry[]) => void;
   filter: string;
   setFilter: (string: string) => void;
-  filteredList: PodcastEntry[];
-  setFilteredList: (podcasts: PodcastEntry[]) => void;
+  filteredList: MappedPodcastEntry[];
+  setFilteredList: (podcasts: MappedPodcastEntry[]) => void;
 }
 export const FilterContext = createContext<IFilterContext | null>(null);
 
 const App = () => {
   const [showLoader, setShowLoader] = useState(false);
   const [filter, setFilter] = useState("");
-  const [initialList, setInitialList] = useState<PodcastEntry[]>([]);
-  const [filteredList, setFilteredList] = useState<PodcastEntry[]>([]);
+  const [initialList, setInitialList] = useState<MappedPodcastEntry[]>([]);
+  const [filteredList, setFilteredList] = useState<MappedPodcastEntry[]>([]);
 
   return (
     <LoaderContext.Provider value={{ showLoader, setShowLoader }}>

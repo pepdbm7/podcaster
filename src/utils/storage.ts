@@ -1,5 +1,5 @@
 import { PODCASTS_DETAILS, PODCASTS_LIST } from "../consts/storage";
-import { Podcast, PodcastEntry } from "./api.types";
+import { Podcast, MappedPodcastEntry } from "./api.types";
 import {
   LocalStoragePodcastDetails,
   LocalStoragePodcasts,
@@ -23,7 +23,7 @@ export const getLocalStoragePodcasts = () => {
   return { timestamp, podcasts };
 };
 
-export const saveLocalStoragePodcasts = (podcasts: PodcastEntry[]) => {
+export const saveLocalStoragePodcasts = (podcasts: MappedPodcastEntry[]) => {
   localStorage.setItem(
     PODCASTS_LIST,
     JSON.stringify({

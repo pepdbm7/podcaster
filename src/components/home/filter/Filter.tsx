@@ -7,7 +7,7 @@ const Filter = () => {
 
   return (
     <FilterWrapper>
-      <div>{filteredList.length}</div>
+      <div>{filteredList?.length}</div>
       <input
         placeholder="Filter podcasts..."
         value={filter}

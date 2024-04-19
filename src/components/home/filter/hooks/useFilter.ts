@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 
-import { PodcastEntry } from "../../../../utils/api.types";
+import { MappedPodcastEntry } from "../../../../utils/api.types";
 import { FilterContext, IFilterContext } from "../../../../App";
 
 const getCaseInsensitiveCoincidences = (a: string, b: string) =>
@@ -17,9 +17,9 @@ export const useFilter = () => {
 
   useEffect(() => {
     const newPodcasts = initialList?.filter(
-      (podcast: PodcastEntry) =>
-        getCaseInsensitiveCoincidences(podcast.title.label, filter) ||
-        getCaseInsensitiveCoincidences(podcast["im:artist"].label, filter)
+      (podcast: MappedPodcastEntry) =>
+        getCaseInsensitiveCoincidences(podcast.title, filter) ||
+        getCaseInsensitiveCoincidences(podcast.author, filter)
     );
     setFilteredList(newPodcasts);
   }, [filter]);

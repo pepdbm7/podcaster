@@ -1,8 +1,5 @@
 import React from "react";
 
-const ListSkeleton = () => {
-  console.log("loading");
-  return <>loading...</>;
-};
+const ListSkeleton = () => <>loading loading loading...</>;
 
 export default ListSkeleton;

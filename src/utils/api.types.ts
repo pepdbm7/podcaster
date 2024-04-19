@@ -102,6 +102,13 @@ export interface PodcastEntry {
   "im:releaseDate": ImReleaseDate;
 }
 
+export interface MappedPodcastEntry {
+  id: string;
+  title: string;
+  author: string;
+  imageUrl: string;
+}
+
 interface ImName {
   label: string;
 }

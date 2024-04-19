@@ -1,29 +1,61 @@
 import { useContext, useEffect, useState } from "react";
 import { ILoaderContext, LoaderContext } from "../App";
 import { PODCASTS_LIST_URL, PODCAST_DETAILS_URL } from "../consts/endpoints";
-import { UseApi, Podcast, PodcastEntry, PodcastsListRaw } from "./api.types";
+import {
+  UseApi,
+  Podcast,
+  PodcastEntry,
+  PodcastsListRaw,
+  MappedPodcastEntry,
+} from "./api.types";
 import {
   getLocalStoragePodcasts,
   isTimestampExpired,
   saveLocalStoragePodcasts,
 } from "./storage";
 
+const getMappedPodcastsList = (
+  podcastsList: PodcastEntry[]
+): MappedPodcastEntry[] =>
+  podcastsList.map((item) => ({
+    id: item.id.attributes["im:id"],
+    title: item["im:name"].label,
+    author: item["im:artist"].label,
+    imageUrl: item["im:image"][1].label,
+  }));
+
 const getFetchedPodcastsList = async () => {
   const res = await fetch(PODCASTS_LIST_URL);
   const data = await res?.json();
-  return data?.feed?.entry;
+
+  if (!data?.contents) throw new Error("Endpoint failed");
+
+  const parsedData = JSON.parse(data.contents)?.feed?.entry;
+
+  if (!parsedData) throw new Error("Data received in wrong format");
+
+  return parsedData;
 };
 
-export const getPodcastsList = async () => {
+export const getPodcastsList = async (setLoader: (bool: boolean) => void) => {
   const { timestamp, podcasts } = getLocalStoragePodcasts();
 
   if (!isTimestampExpired(timestamp) && podcasts.length) {
     return podcasts;
   }
 
-  const fetchedPodcastsList = await getFetchedPodcastsList();
-  saveLocalStoragePodcasts(fetchedPodcastsList);
-  return fetchedPodcastsList;
+  try {
+    setLoader(true);
+    const fetchedPodcastsList = await getFetchedPodcastsList();
+    const mappedPodcastsList = getMappedPodcastsList(fetchedPodcastsList);
+    //   saveLocalStoragePodcasts(mappedPodcastsList);
+    setLoader(false);
+    return mappedPodcastsList;
+  } catch (err) {
+    console.log(err);
+    setLoader(false);
+    return [];
+  }
 };
 
 //hook deprecated:
