@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Wrapper, HeaderTitle, Loader } from "./Header.styles";
 import { ILoaderContext, LoaderContext } from "../../../App";
 

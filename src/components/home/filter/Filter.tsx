@@ -1,5 +1,5 @@
 import React from "react";
-import { FilterWrapper } from "./Filter.styles";
+import { FilterWrapper, ResultsCounter, FilterInput } from "./Filter.styles";
 import { useFilter } from "./hooks/useFilter";
 
 const Filter = () => {
@@ -7,8 +7,8 @@ const Filter = () => {
 
   return (
     <FilterWrapper>
-      <div>{filteredList?.length}</div>
-      <input
+      <ResultsCounter>{filteredList?.length}</ResultsCounter>
+      <FilterInput
         placeholder="Filter podcasts..."
         value={filter}
         onChange={(event) => {

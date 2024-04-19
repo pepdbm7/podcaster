@@ -48,7 +48,7 @@ export const getPodcastsList = async (setLoader: (bool: boolean) => void) => {
     setLoader(true);
     const fetchedPodcastsList = await getFetchedPodcastsList();
     const mappedPodcastsList = getMappedPodcastsList(fetchedPodcastsList);
-    //   saveLocalStoragePodcasts(mappedPodcastsList);
+    saveLocalStoragePodcasts(mappedPodcastsList);
     setLoader(false);
     return mappedPodcastsList;
   } catch (err) {

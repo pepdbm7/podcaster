@@ -1,15 +1,10 @@
 html {
-  --blue: #4e8dc8;
-  --grey: grey;
-  --dark-grey: #444444f7;
-  --light-grey: #e9eaebf5;
-  --black: black;
-  --white: white;
-
-  --primary: #4e8dc8;
+  --primary: #367caf;
   --secondary-light: #e9eaebf5;
   --secondary-medium: grey;
   --secondary-dark: #444444f7;
+
+  --screen-lg: 64em;
 }
 
 body {

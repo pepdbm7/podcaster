@@ -2,7 +2,7 @@ import React, { lazy, useContext } from "react";
 import useListData from "./useListData";
 
 import Card from "../card/Card";
-import { Wrapper } from "./List.styles";
+import { ListWrapper } from "./List.styles";
 import ListSkeleton from "../listSkeleton/ListSkeleton";
 import { ILoaderContext, LoaderContext } from "../../../App";
 
@@ -16,11 +16,11 @@ const List = () => {
   if (showLoader) return <ListSkeleton />;
 
   return (
-    <Wrapper>
+    <ListWrapper>
       {podcastsList?.map((podcast, i) => (
         <Card data={podcast} key={i} />
       ))}
-    </Wrapper>
+    </ListWrapper>
   );
 };
 
