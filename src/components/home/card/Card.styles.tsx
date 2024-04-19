@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const Wraper = styled.section`
+export const Wrapper = styled(Link)`
   padding: 12px;
-  border: 1px solid;
-  background-color: tomato;
+  border: 1px solid tomato;
+  text-decoration: none;
 `;

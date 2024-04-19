@@ -5,14 +5,22 @@ import {
   LocalStoragePodcasts,
 } from "./storage.types";
 
+export const isTimestampExpired = (timestamp: number) => {
+  if (!timestamp) return false;
+
+  const current = Date.now();
+  const diffInMilliseconds = current - timestamp;
+  return diffInMilliseconds / (3600 * 1000) > 24;
+};
+
 // PODCAST LIST:
 
 export const getLocalStoragePodcasts = () => {
   const savedPodcasts = localStorage.getItem(PODCASTS_LIST);
-  if (!savedPodcasts) return null;
+  if (!savedPodcasts) return { timestamp: 0, podcasts: [] };
   const { timestamp, podcasts }: LocalStoragePodcasts =
     JSON.parse(savedPodcasts);
-  return { podcasts };
+  return { timestamp, podcasts };
 };
 
 export const saveLocalStoragePodcasts = (podcasts: PodcastEntry[]) => {
