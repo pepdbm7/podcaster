@@ -19,7 +19,7 @@ export const useFilter = () => {
     const newPodcasts = initialList?.filter(
       (podcast: MappedPodcastEntry) =>
         getCaseInsensitiveCoincidences(podcast.title, filter) ||
-        getCaseInsensitiveCoincidences(podcast.author, filter)
+        getCaseInsensitiveCoincidences(podcast.artist, filter)
     );
     setFilteredList(newPodcasts);
   }, [filter]);

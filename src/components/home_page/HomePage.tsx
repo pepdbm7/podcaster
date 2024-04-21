@@ -7,7 +7,7 @@ import Filter from "./filter/Filter";
 
 const LazyLoadedList = lazy(() => import("./list/List"));
 
-const Home = () => (
+const HomePage = () => (
   <Layout>
     <Filter />
     <Suspense fallback={<ListSkeleton />}>
@@ -16,4 +16,4 @@ const Home = () => (
   </Layout>
 );
 
-export default Home;
+export default HomePage;

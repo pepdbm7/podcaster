@@ -105,8 +105,38 @@ export interface PodcastEntry {
 export interface MappedPodcastEntry {
   id: string;
   title: string;
-  author: string;
+  artist: string;
   imageUrl: string;
+  summary: string;
+}
+
+interface MappedPodcastBoxDetails {
+  title?: string;
+  artist?: string;
+  imageUrl?: string;
+}
+
+export interface MappedEpisode {
+  title?: string;
+  date?: Date | string;
+  duration?: number;
+  description?: string;
+  previewSrc?: string;
+}
+
+export interface MappedPodcastDetails {
+  details: MappedPodcastBoxDetails;
+  episodesCount: number;
+  episodes: MappedEpisode[];
+}
+
+export interface LocalStoragePodcastDetailValue {
+  timestamp: number;
+  podcastDetails: MappedPodcastDetails;
+}
+
+export interface LocalStoragePodcastDetail {
+  [key: string]: LocalStoragePodcastDetailValue;
 }
 
 interface ImName {

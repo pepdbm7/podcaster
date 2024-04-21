@@ -1,9 +1,11 @@
 import { PODCASTS_DETAILS, PODCASTS_LIST } from "../consts/storage";
-import { Podcast, MappedPodcastEntry } from "./api.types";
 import {
-  LocalStoragePodcastDetails,
-  LocalStoragePodcasts,
-} from "./storage.types";
+  MappedPodcastEntry,
+  MappedPodcastDetails,
+  LocalStoragePodcastDetail,
+  LocalStoragePodcastDetailValue,
+} from "./api.types";
+import { LocalStoragePodcasts } from "./storage.types";
 
 export const isTimestampExpired = (timestamp: number) => {
   if (!timestamp) return false;
@@ -38,18 +40,18 @@ export const saveLocalStoragePodcasts = (podcasts: MappedPodcastEntry[]) => {
 const getLocalStoragePodcastsDetails = () => {
   const localPodcasts = localStorage.getItem(PODCASTS_DETAILS);
   if (!localPodcasts) return {};
-  const localPodcastsDetails: LocalStoragePodcastDetails =
+  const localPodcastsDetails: LocalStoragePodcastDetail =
     JSON.parse(localPodcasts);
   return localPodcastsDetails;
 };
 
 export const saveLocalStoragePodcastDetails = (
   podcastId: string,
-  podcastDetails: Podcast
+  podcastDetails: MappedPodcastDetails
 ) => {
   const newLocalStoragePodcastDetails = {
     ...getLocalStoragePodcastsDetails(),
-    [podcastId]: { timestamp: Date.now(), podcastDetails: podcastDetails },
+    [podcastId]: { timestamp: Date.now(), podcastDetails },
   };
   localStorage.setItem(
     PODCASTS_DETAILS,
@@ -57,8 +59,9 @@ export const saveLocalStoragePodcastDetails = (
   );
 };
 
-export const getPodcastDetails = async (podcastId: string | undefined) => {
-  if (!podcastId) return {};
+export const getLocalStoragePodcastDetails = (
+  podcastId: string
+): LocalStoragePodcastDetailValue => {
   const localPodcastsDetails = getLocalStoragePodcastsDetails();
   return localPodcastsDetails[podcastId];
 };
