@@ -5,6 +5,7 @@ html {
   --secondary-dark: #444444f7;
 
   --screen-lg: 64em;
+  --shadow-lg: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
 }
 
 body {

@@ -1,10 +1,4 @@
-export interface UseApi {
-  url: string;
-  podcastId?: string;
-  enabled?: boolean;
-}
-
-export interface Genre {
+interface Genre {
   name: string;
   id: string;
 }
@@ -110,16 +104,17 @@ export interface MappedPodcastEntry {
   summary: string;
 }
 
-interface MappedPodcastBoxDetails {
+export interface MappedPodcastBoxDetails {
   title?: string;
   artist?: string;
   imageUrl?: string;
 }
 
 export interface MappedEpisode {
+  id?: number;
   title?: string;
   date?: Date | string;
-  duration?: number;
+  duration?: string;
   description?: string;
   previewSrc?: string;
 }

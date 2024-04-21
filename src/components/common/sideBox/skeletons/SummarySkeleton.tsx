@@ -1,29 +1,29 @@
 import React from "react";
 
-const EpisodesListSkeleton = () => {
+const SummarySkeleton = () => {
   return (
     <svg
       role="img"
       aria-labelledby="loading-aria"
-      width="662"
-      height="800"
+      width="240"
+      height="98"
       preserveAspectRatio="none"
     >
-      <title id="loading-aria">Loading podcast episodes list</title>
+      <title id="loading-aria">Loading summary</title>
       <rect
         x="0"
         y="0"
         width="100%"
-        height="70"
+        height="20"
         clipPath="url(#clip-path)"
         id="outerBox"
         fill="url('#fill')"
       />
       <rect
         x="0"
-        y="90"
+        y="36"
         width="100%"
-        height="100%"
+        height="60"
         clipPath="url(#clip-path)"
         id="outerBox"
         fill="url('#fill')"
@@ -63,4 +63,4 @@ const EpisodesListSkeleton = () => {
   );
 };
 
-export default EpisodesListSkeleton;
+export default SummarySkeleton;

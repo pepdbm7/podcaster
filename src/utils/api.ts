@@ -1,14 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { ILoaderContext, LoaderContext } from "../App";
 import { PODCASTS_LIST_URL, PODCAST_DETAILS_URL } from "../consts/endpoints";
 import {
-  UseApi,
   Podcast,
   PodcastEntry,
-  PodcastsListRaw,
   MappedPodcastEntry,
   MappedPodcastDetails,
 } from "./api.types";
+import { getFormattedDate, getFormattedMinutes } from "./times";
 import {
   getLocalStoragePodcastDetails,
   getLocalStoragePodcasts,
@@ -17,7 +14,7 @@ import {
   saveLocalStoragePodcasts,
 } from "./storage";
 
-// PODCASTS LIST:
+/////////// PODCASTS LIST:
 
 const getMappedPodcastsList = (
   podcastsList: PodcastEntry[]
@@ -64,13 +61,13 @@ export const getPodcastsList = async (setLoader?: (bool: boolean) => void) => {
   }
 };
 
-//PODCAST DETAILS:
+/////////// PODCAST DETAILS:
 
 export const getPodcastSummary = async (
   podcastId: string | undefined,
   setLoader?: (bool: boolean) => void
 ) => {
-  if (podcastId) console.error("No podcast id to find its summary");
+  if (!podcastId) console.error("No podcast id to find its summary");
   const podcastsList = await getPodcastsList(setLoader);
   const podcast = podcastsList?.find((podcast) => podcast.id === podcastId);
   return podcast?.summary;
@@ -86,9 +83,10 @@ const getMappedPodcastDetails = (
   },
   episodesCount: podcastDetails.resultCount,
   episodes: podcastDetails.results.map((episode) => ({
+    id: episode.trackId,
     title: episode.trackName,
-    date: episode.releaseDate,
-    duration: episode.trackTimeMillis,
+    date: getFormattedDate(episode.releaseDate),
+    duration: getFormattedMinutes(episode.trackTimeMillis),
     description: episode.description || episode.shortDescription,
     previewSrc: episode.previewUrl,
   })),
@@ -97,14 +95,15 @@ const getMappedPodcastDetails = (
 const getFetchedPodcastDetails = async (podcastId: string) => {
   const urlWithId = PODCAST_DETAILS_URL.replace(":podcastId", podcastId);
   const res = await fetch(urlWithId);
-  const details = await res?.json();
-  return details;
-};
+  const data = await res?.json();
 
-const initialPodcastDetails = {
-  details: {},
-  episodesCount: 0,
-  episodes: [],
+  if (!data?.contents) throw new Error("Endpoint failed");
+
+  const parsedData = JSON.parse(data.contents);
+
+  if (!parsedData) throw new Error("Podcast details received in wrong format");
+
+  return parsedData;
 };
 
 export const getPodcastDetails = async (
@@ -115,11 +114,13 @@ export const getPodcastDetails = async (
     if (!podcastId)
       throw new Error("No podcast id found to get podcast details");
 
-    const { timestamp, podcastDetails } =
-      getLocalStoragePodcastDetails(podcastId);
+    const localStoragPodcastDetails = getLocalStoragePodcastDetails(podcastId);
 
-    if (timestamp && !isTimestampExpired(timestamp)) {
-      return podcastDetails;
+    if (
+      localStoragPodcastDetails?.timestamp &&
+      !isTimestampExpired(localStoragPodcastDetails?.timestamp)
+    ) {
+      return localStoragPodcastDetails?.podcastDetails;
     }
 
     setLoader?.(true);

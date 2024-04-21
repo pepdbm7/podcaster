@@ -1,27 +1,18 @@
 import React from "react";
 
-const EpisodesListSkeleton = () => {
+const SideBoxSkeleton = () => {
   return (
     <svg
       role="img"
       aria-labelledby="loading-aria"
-      width="662"
-      height="800"
+      width="18.6em"
+      height="28.5em"
       preserveAspectRatio="none"
     >
-      <title id="loading-aria">Loading podcast episodes list</title>
+      <title id="loading-aria">Loading sidebox</title>
       <rect
         x="0"
         y="0"
-        width="100%"
-        height="70"
-        clipPath="url(#clip-path)"
-        id="outerBox"
-        fill="url('#fill')"
-      />
-      <rect
-        x="0"
-        y="90"
         width="100%"
         height="100%"
         clipPath="url(#clip-path)"
@@ -63,4 +54,4 @@ const EpisodesListSkeleton = () => {
   );
 };
 
-export default EpisodesListSkeleton;
+export default SideBoxSkeleton;

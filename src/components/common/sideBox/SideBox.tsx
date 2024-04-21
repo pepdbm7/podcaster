@@ -1,31 +1,59 @@
-import React, { useState } from "react";
-import { Main } from "./SideBox.styles";
-import SideBoxSkeleton from "./sideboxSkeleton/SideBoxSkeleton";
-import { MappedPodcastDetails } from "../../../utils/api.types";
-import { useParams } from "react-router-dom";
-import { getPodcastSummary } from "../../../utils/api";
-import SummarySkeleton from "./summarySkeleton/SummarySkeleton";
+import React from "react";
+
+import useSummarySideBox from "./hooks/useSummarySideBox";
+
+import SideBoxSkeleton from "./skeletons/SideBoxSkeleton";
+import SummarySkeleton from "./skeletons/SummarySkeleton";
+
+import { MappedPodcastBoxDetails } from "../../../utils/api.types";
+
+import {
+  PodcastArtist,
+  PocastImageWrapper,
+  PodcastImage,
+  PodcastSummary,
+  PodcastSummaryTitle,
+  PodcastSummaryWrapper,
+  PodcastTitle,
+  Wrapper,
+} from "./SideBox.styles";
+import { Link } from "react-router-dom";
 
 const SideBox = ({
-  data,
+  details,
   showLoader,
 }: {
-  data: MappedPodcastDetails | null;
+  details?: MappedPodcastBoxDetails;
   showLoader: boolean;
 }) => {
-  const { podcastId } = useParams();
-
-  const [showSummaryLoader, setShowSummaryLoader] = useState(false);
-
-  const podcastSummary = getPodcastSummary(podcastId, setShowSummaryLoader);
+  const { showSummaryLoader, podcastSummary, link } = useSummarySideBox();
 
   if (showLoader) return <SideBoxSkeleton />;
 
   return (
-    <Main>
-      descritpion here:
-      {showSummaryLoader ? <SummarySkeleton /> : <>{podcastSummary}</>}
-    </Main>
+    <Wrapper>
+      <PocastImageWrapper to={link}>
+        <PodcastImage src={details?.imageUrl} alt={details?.title} />
+      </PocastImageWrapper>
+      <hr />
+      <PodcastTitle>
+        <Link to={link}>{details?.title}</Link>
+      </PodcastTitle>
+      <PodcastArtist>
+        by <Link to={link}>{details?.artist}</Link>
+      </PodcastArtist>
+      <hr />
+      {showSummaryLoader ? (
+        <SummarySkeleton />
+      ) : (
+        <PodcastSummaryWrapper>
+          <PodcastSummaryTitle>Description: </PodcastSummaryTitle>
+          <PodcastSummary>
+            <>{podcastSummary}</>
+          </PodcastSummary>
+        </PodcastSummaryWrapper>
+      )}
+    </Wrapper>
   );
 };
 
