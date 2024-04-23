@@ -5,7 +5,7 @@ import useSummarySideBox from "./hooks/useSummarySideBox";
 import SideBoxSkeleton from "./skeletons/SideBoxSkeleton";
 import SummarySkeleton from "./skeletons/SummarySkeleton";
 
-import { MappedPodcastBoxDetails } from "../../../utils/api.types";
+import { MappedPodcastBoxDetails } from "../../../utils/podcastList/api/api.types";
 
 import {
   PodcastArtist,

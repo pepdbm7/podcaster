@@ -1,7 +1,8 @@
 import { useContext, useEffect } from "react";
 
-import { MappedPodcastEntry } from "../../../../utils/api.types";
-import { FilterContext, IFilterContext } from "../../../../App";
+import { MappedPodcastEntry } from "../../../../utils/podcastList/api/api.types";
+import { IFilterContext } from "../../../../contexts/contexts.types";
+import { FilterContext } from "../../../../contexts/contexts";
 
 const getCaseInsensitiveCoincidences = (a: string, b: string) =>
   a.toLowerCase().includes(b.toLowerCase());
@@ -21,6 +22,7 @@ export const useFilter = () => {
         getCaseInsensitiveCoincidences(podcast.title, filter) ||
         getCaseInsensitiveCoincidences(podcast.artist, filter)
     );
+    console.log({ filter, initialList });
     setFilteredList(newPodcasts);
   }, [filter]);
 

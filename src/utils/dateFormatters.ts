@@ -17,3 +17,13 @@ export const getFormattedMinutes = (milliseconds: number): string => {
     seconds < 10 ? `0${seconds}` : seconds
   }`;
 };
+
+export const isTimestampExpired = (timestamp: number) => {
+  if (!timestamp) return false;
+
+  const current = Date.now();
+  const diffInMilliseconds = current - timestamp;
+  const diffInHours = diffInMilliseconds / (3600 * 1000);
+
+  return diffInHours > 24;
+};

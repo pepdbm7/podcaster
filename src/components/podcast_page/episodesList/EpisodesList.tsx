@@ -1,5 +1,8 @@
 import React from "react";
-import { MappedEpisode, MappedPodcastDetails } from "../../../utils/api.types";
+import {
+  MappedEpisode,
+  MappedPodcastDetails,
+} from "../../../utils/podcastList/api/api.types";
 import EpisodesListSkeleton from "./EpisodesListSkeleton";
 import {
   EpisodesCounterTitle,
@@ -44,6 +47,7 @@ const EpisodesList = ({
                 j === 0 ? (
                   <td key={`${j}`}>
                     <Link
+                      data-testid={`link_${episode.id}`}
                       to={`/podcast/${podcastId}/episode/${episode.id}`}
                     >{`${episode[name as keyof MappedEpisode]}`}</Link>
                   </td>

@@ -4,12 +4,12 @@ const EpisodeDetailsSkeleton = () => {
   return (
     <svg
       role="img"
-      aria-labelledby="loading-aria"
+      aria-labelledby="loading-episode_details"
       width="662"
       height="454"
       preserveAspectRatio="none"
     >
-      <title id="loading-aria">Loading episode details</title>
+      <title id="loading-episode_details">Loading episode details</title>
       <rect
         x="0"
         y="0"

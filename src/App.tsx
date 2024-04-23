@@ -5,24 +5,8 @@ import { HOME_PATH, PODCAST_PATH, EPISODE_PATH } from "./consts/routes";
 import HomePage from "./components/home_page/HomePage";
 import PodcastPage from "./components/podcast_page/PodcastPage";
 import EpisodePage from "./components/episode_page/EpisodePage";
-import { MappedPodcastEntry } from "./utils/api.types";
-
-export interface ILoaderContext {
-  showLoader: boolean;
-  setShowLoader: (bool: boolean) => void;
-}
-export const LoaderContext = createContext<ILoaderContext | null>(null);
-
-//we could wrap only home component with filter context as it is only used in that view, but by leaving it here we'll see the filters as they were when we navigate back to home page
-export interface IFilterContext {
-  initialList: MappedPodcastEntry[];
-  setInitialList: (podcasts: MappedPodcastEntry[]) => void;
-  filter: string;
-  setFilter: (string: string) => void;
-  filteredList: MappedPodcastEntry[];
-  setFilteredList: (podcasts: MappedPodcastEntry[]) => void;
-}
-export const FilterContext = createContext<IFilterContext | null>(null);
+import { MappedPodcastEntry } from "./utils/podcastList/api/api.types";
+import { FilterContext, HeaderLoaderContext } from "./contexts/contexts";
 
 const App = () => {
   const [showLoader, setShowLoader] = useState(false);
@@ -31,7 +15,7 @@ const App = () => {
   const [filteredList, setFilteredList] = useState<MappedPodcastEntry[]>([]);
 
   return (
-    <LoaderContext.Provider value={{ showLoader, setShowLoader }}>
+    <HeaderLoaderContext.Provider value={{ showLoader, setShowLoader }}>
       <FilterContext.Provider
         value={{
           initialList,
@@ -50,7 +34,7 @@ const App = () => {
           </Routes>
         </Router>
       </FilterContext.Provider>
-    </LoaderContext.Provider>
+    </HeaderLoaderContext.Provider>
   );
 };
 

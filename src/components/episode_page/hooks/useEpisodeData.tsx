@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import {
   MappedEpisode,
   MappedPodcastBoxDetails,
-} from "../../../utils/api.types";
-import { getPodcastDetails } from "../../../utils/api";
+} from "../../../utils/podcastList/api/api.types";
+import { getPodcastDetails } from "../../../utils/podcastDetails/api/api";
 
 const useEpisodeData = () => {
   const { podcastId, episodeId } = useParams();

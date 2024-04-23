@@ -6,10 +6,10 @@ const ListSkeleton = () => (
     role="img"
     width="100%"
     height="109em"
-    aria-labelledby="loading-aria"
+    aria-labelledby="loading-list"
     preserveAspectRatio="none"
   >
-    <title id="loading-aria">Loading list</title>
+    <title id="loading-list">Loading list</title>
     <rect
       x="0"
       y="0"

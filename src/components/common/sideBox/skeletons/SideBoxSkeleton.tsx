@@ -4,12 +4,12 @@ const SideBoxSkeleton = () => {
   return (
     <svg
       role="img"
-      aria-labelledby="loading-aria"
+      aria-labelledby="loading-sidebox"
       width="18.6em"
       height="28.5em"
       preserveAspectRatio="none"
     >
-      <title id="loading-aria">Loading sidebox</title>
+      <title id="loading-sidebox">Loading sidebox</title>
       <rect
         x="0"
         y="0"

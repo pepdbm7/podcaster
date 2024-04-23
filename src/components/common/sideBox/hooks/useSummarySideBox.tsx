@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPodcastSummary } from "../../../../utils/api";
+
+import { getPodcastSummary } from "../../../../utils/podcastDetails/api/api";
 
 const useSummarySideBox = () => {
   const { podcastId } = useParams();
@@ -8,14 +9,13 @@ const useSummarySideBox = () => {
   const [showSummaryLoader, setShowSummaryLoader] = useState(false);
   const [podcastSummary, setPodcastSummary] = useState<string | undefined>("");
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     const _getPodcastSummary = async () => {
       const _podcastSummary = await getPodcastSummary(
         podcastId,
         setShowSummaryLoader
       );
+      console.log({ _podcastSummary });
       setPodcastSummary(_podcastSummary);
     };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { MappedPodcastEntry } from "../../../utils/api.types";
+import { MappedPodcastEntry } from "../../../utils/podcastList/api/api.types";
 import { Wrapper, Image, Title, Author } from "./Card.styles";
 import { PODCAST_PATH } from "../../../consts/routes";
 

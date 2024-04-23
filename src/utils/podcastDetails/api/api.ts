@@ -1,79 +1,30 @@
-import { PODCASTS_LIST_URL, PODCAST_DETAILS_URL } from "../consts/endpoints";
+import { PODCAST_DETAILS_URL } from "../../../consts/endpoints";
+import { Podcast, MappedPodcastDetails } from "../../podcastList/api/api.types";
 import {
-  Podcast,
-  PodcastEntry,
-  MappedPodcastEntry,
-  MappedPodcastDetails,
-} from "./api.types";
-import { getFormattedDate, getFormattedMinutes } from "./times";
+  getFormattedDate,
+  getFormattedMinutes,
+  isTimestampExpired,
+} from "../../dateFormatters";
 import {
   getLocalStoragePodcastDetails,
-  getLocalStoragePodcasts,
-  isTimestampExpired,
   saveLocalStoragePodcastDetails,
-  saveLocalStoragePodcasts,
-} from "./storage";
-
-/////////// PODCASTS LIST:
-
-const getMappedPodcastsList = (
-  podcastsList: PodcastEntry[]
-): MappedPodcastEntry[] =>
-  podcastsList.map((podcast) => ({
-    id: podcast.id.attributes["im:id"],
-    title: podcast["im:name"].label,
-    artist: podcast["im:artist"].label,
-    imageUrl: podcast["im:image"][1].label,
-    summary: podcast.summary.label,
-  }));
-
-const getFetchedPodcastsList = async () => {
-  const res = await fetch(PODCASTS_LIST_URL);
-  const data = await res?.json();
-
-  if (!data?.contents) throw new Error("Endpoint failed");
-
-  const parsedData = JSON.parse(data.contents)?.feed?.entry;
-
-  if (!parsedData) throw new Error("Data received in wrong format");
-
-  return parsedData;
-};
-
-export const getPodcastsList = async (setLoader?: (bool: boolean) => void) => {
-  const { timestamp, podcasts } = getLocalStoragePodcasts();
-
-  if (!isTimestampExpired(timestamp) && podcasts.length) {
-    return podcasts;
-  }
-
-  try {
-    setLoader?.(true);
-    const fetchedPodcastsList = await getFetchedPodcastsList();
-    const mappedPodcastsList = getMappedPodcastsList(fetchedPodcastsList);
-    saveLocalStoragePodcasts(mappedPodcastsList);
-    setLoader?.(false);
-    return mappedPodcastsList;
-  } catch (err) {
-    console.log(err);
-    setLoader?.(false);
-    return [];
-  }
-};
-
-/////////// PODCAST DETAILS:
+} from "../storage/storage";
+import { getPodcastsList } from "../../podcastList/api/api";
 
 export const getPodcastSummary = async (
   podcastId: string | undefined,
   setLoader?: (bool: boolean) => void
 ) => {
   if (!podcastId) console.error("No podcast id to find its summary");
+
   const podcastsList = await getPodcastsList(setLoader);
+  console.log({ podcastsList });
   const podcast = podcastsList?.find((podcast) => podcast.id === podcastId);
+
   return podcast?.summary;
 };
 
-const getMappedPodcastDetails = (
+export const getMappedPodcastDetails = (
   podcastDetails: Podcast
 ): MappedPodcastDetails => ({
   details: {
@@ -92,16 +43,16 @@ const getMappedPodcastDetails = (
   })),
 });
 
-const getFetchedPodcastDetails = async (podcastId: string) => {
+export const getFetchedPodcastDetails = async (podcastId: string) => {
   const urlWithId = PODCAST_DETAILS_URL.replace(":podcastId", podcastId);
   const res = await fetch(urlWithId);
   const data = await res?.json();
-
-  if (!data?.contents) throw new Error("Endpoint failed");
+  if (data?.status.http_code !== 200) throw "Endpoint failed";
 
   const parsedData = JSON.parse(data.contents);
 
-  if (!parsedData) throw new Error("Podcast details received in wrong format");
+  if (!parsedData?.results && !parsedData?.resultCount)
+    throw "Podcast details received in wrong format";
 
   return parsedData;
 };
@@ -111,11 +62,10 @@ export const getPodcastDetails = async (
   setLoader?: (bool: boolean) => void
 ): Promise<MappedPodcastDetails | null> => {
   try {
-    if (!podcastId)
-      throw new Error("No podcast id found to get podcast details");
+    if (!podcastId) throw "No podcast id found to get podcast details";
 
     const localStoragPodcastDetails = getLocalStoragePodcastDetails(podcastId);
-
+    console.log({ localStoragPodcastDetails });
     if (
       localStoragPodcastDetails?.timestamp &&
       !isTimestampExpired(localStoragPodcastDetails?.timestamp)
@@ -124,13 +74,16 @@ export const getPodcastDetails = async (
     }
 
     setLoader?.(true);
+    console.log("helllooooo");
     const fetchedPodcastDetails = await getFetchedPodcastDetails(podcastId);
+    console.log({ fetchedPodcastDetails });
     const mappedPodcastDetails = getMappedPodcastDetails(fetchedPodcastDetails);
     saveLocalStoragePodcastDetails(podcastId, mappedPodcastDetails);
     setLoader?.(false);
+
     return mappedPodcastDetails;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     setLoader?.(false);
     return null;
   }

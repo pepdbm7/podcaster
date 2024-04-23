@@ -5,13 +5,13 @@ import ListSkeleton from "./listSkeleton/ListSkeleton";
 import Layout from "../common/layout/Layout";
 import Filter from "./filter/Filter";
 
-const LazyLoadedList = lazy(() => import("./list/List"));
+import PodcastList from "./list/List";
 
 const HomePage = () => (
   <Layout>
     <Filter />
     <Suspense fallback={<ListSkeleton />}>
-      <LazyLoadedList />
+      <PodcastList />
     </Suspense>
   </Layout>
 );

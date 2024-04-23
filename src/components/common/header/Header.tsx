@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
+
 import { Wrapper, HeaderTitle, Loader } from "./Header.styles";
-import { ILoaderContext, LoaderContext } from "../../../App";
+import { IHeaderLoaderContext } from "../../../contexts/contexts.types";
+import { HeaderLoaderContext } from "../../../contexts/contexts";
 
 export const Header = () => {
-  const { showLoader }: ILoaderContext = useContext(
-    LoaderContext
-  ) as ILoaderContext;
+  const { showLoader }: IHeaderLoaderContext = useContext(
+    HeaderLoaderContext
+  ) as IHeaderLoaderContext;
 
   return (
     <Wrapper>
