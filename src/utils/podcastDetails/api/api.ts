@@ -18,7 +18,7 @@ export const getPodcastSummary = async (
   if (!podcastId) console.error("No podcast id to find its summary");
 
   const podcastsList = await getPodcastsList(setLoader);
-  console.log({ podcastsList });
+
   const podcast = podcastsList?.find((podcast) => podcast.id === podcastId);
 
   return podcast?.summary;
@@ -65,7 +65,7 @@ export const getPodcastDetails = async (
     if (!podcastId) throw "No podcast id found to get podcast details";
 
     const localStoragPodcastDetails = getLocalStoragePodcastDetails(podcastId);
-    console.log({ localStoragPodcastDetails });
+
     if (
       localStoragPodcastDetails?.timestamp &&
       !isTimestampExpired(localStoragPodcastDetails?.timestamp)
@@ -74,9 +74,9 @@ export const getPodcastDetails = async (
     }
 
     setLoader?.(true);
-    console.log("helllooooo");
+
     const fetchedPodcastDetails = await getFetchedPodcastDetails(podcastId);
-    console.log({ fetchedPodcastDetails });
+
     const mappedPodcastDetails = getMappedPodcastDetails(fetchedPodcastDetails);
     saveLocalStoragePodcastDetails(podcastId, mappedPodcastDetails);
     setLoader?.(false);

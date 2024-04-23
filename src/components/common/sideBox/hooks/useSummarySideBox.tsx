@@ -15,7 +15,6 @@ const useSummarySideBox = () => {
         podcastId,
         setShowSummaryLoader
       );
-      console.log({ _podcastSummary });
       setPodcastSummary(_podcastSummary);
     };
 

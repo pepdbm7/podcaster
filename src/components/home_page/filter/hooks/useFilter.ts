@@ -22,7 +22,6 @@ export const useFilter = () => {
         getCaseInsensitiveCoincidences(podcast.title, filter) ||
         getCaseInsensitiveCoincidences(podcast.artist, filter)
     );
-    console.log({ filter, initialList });
     setFilteredList(newPodcasts);
   }, [filter]);
 

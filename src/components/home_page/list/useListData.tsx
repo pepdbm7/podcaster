@@ -7,13 +7,13 @@ const useListData = () => {
   const { filteredList, setInitialList }: IFilterContext = useContext(
     FilterContext
   ) as IFilterContext;
-  console.log({ filteredList });
+
   const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     const getInitialPodcastsList = async () => {
       const initialPodcastsList = await getPodcastsList(setShowLoader);
-      console.log({ initialPodcastsList });
+
       setInitialList(initialPodcastsList);
     };
 

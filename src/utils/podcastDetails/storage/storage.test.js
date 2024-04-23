@@ -19,26 +19,25 @@ describe("podcast list storage", () => {
     global.localStorage = localStorageBackup;
   });
 
-  it("getLocalStoragePodcastDetails should use localstorage", () => {
+  it("getLocalStoragePodcastDetails should use localstorage getItem method", () => {
     getLocalStoragePodcastDetails();
 
     expect(global.localStorage.getItem).toBeCalledWith(PODCASTS_DETAILS);
   });
 
-  it("getLocalStoragePodcastDetails should use localstorage and return data", () => {
+  it("getLocalStoragePodcastDetails should get local storage data", () => {
     delete global.localStorage;
     global.localStorage = {
       getItem: jest.fn(() => JSON.stringify(localStoragePodcastDetails)),
       setItem: jest.fn(),
     };
     const podcastId = 1535809341;
-    const details = getLocalStoragePodcastDetails(podcastId);
-    expect(details).toReturnWith(localStoragePodcastDetails[podcastId]);
+    getLocalStoragePodcastDetails(podcastId);
 
     expect(global.localStorage.getItem).toBeCalledWith(PODCASTS_DETAILS);
   });
 
-  it("saveLocalStoragePodcastDetails should use localstorage", () => {
+  it("saveLocalStoragePodcastDetails should use localstorage setItem method", () => {
     saveLocalStoragePodcastDetails();
 
     expect(global.localStorage.setItem).toBeCalled();

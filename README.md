@@ -1,6 +1,20 @@
-# Getting Started with Create React App
+# Podcaster
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a Single Page Application that retrieves and shows the 100 most popular podcasts of itunes and a podcast page with more details of each and an audio player.
+
+The podcasts list can be filtered by title and author. The content is fetched the first time we access, but next times it won't as the data will be already stored for 24hours.
+
+It has a 100% testing coverage, with all components logic encapsulated in hooks to keep clean code and for better maintenance.
+
+## Screenshots
+
+![home page](https://raw.githubusercontent.com/pepdbm7/podcaster/master/screenshots/home_screenshot.PNG)
+
+![podcast page](https://raw.githubusercontent.com/pepdbm7/podcaster/master/screenshots/podcast_page_screenshot.PNG)
+
+![episode page](https://raw.githubusercontent.com/pepdbm7/podcaster/master/screenshots/episode_page_screenshot.PNG)
+
+![coverage](https://raw.githubusercontent.com/pepdbm7/podcaster/master/screenshots/coverage_screenshot.PNG)
 
 ## Available Scripts
 
@@ -18,6 +32,10 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run coverage`
+
+Launches the test runner with the coverage board.
 
 ### `npm run build`
 
