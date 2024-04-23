@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 
 import ListSkeleton from "./listSkeleton/ListSkeleton";
 import Layout from "../common/layout/Layout";

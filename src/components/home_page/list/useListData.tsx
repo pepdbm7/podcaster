@@ -1,6 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
-import { IFilterContext } from "../../../contexts/contexts.types";
-import { FilterContext } from "../../../contexts/contexts";
+import { useContext, useEffect } from "react";
+import {
+  IFilterContext,
+  IHeaderLoaderContext,
+} from "../../../contexts/contexts.types";
+import { FilterContext, HeaderLoaderContext } from "../../../contexts/contexts";
 import { getPodcastsList } from "../../../utils/podcastList/api/api";
 
 const useListData = () => {
@@ -8,7 +11,9 @@ const useListData = () => {
     FilterContext
   ) as IFilterContext;
 
-  const [showLoader, setShowLoader] = useState(false);
+  const { showLoader, setShowLoader }: IHeaderLoaderContext = useContext(
+    HeaderLoaderContext
+  ) as IHeaderLoaderContext;
 
   useEffect(() => {
     const getInitialPodcastsList = async () => {

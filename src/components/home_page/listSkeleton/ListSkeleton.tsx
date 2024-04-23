@@ -4,10 +4,9 @@ import { SkeletonSvg } from "./ListSkeleton.styles";
 const ListSkeleton = () => (
   <SkeletonSvg
     role="img"
-    width="100%"
-    height="109em"
     aria-labelledby="loading-list"
     preserveAspectRatio="none"
+    viewBox="0 0 422 800"
   >
     <title id="loading-list">Loading list</title>
     <rect

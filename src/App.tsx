@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import { useState } from "react";
 
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { HOME_PATH, PODCAST_PATH, EPISODE_PATH } from "./consts/routes";
