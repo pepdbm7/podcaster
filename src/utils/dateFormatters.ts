@@ -1,21 +1,30 @@
+const formatDigits = (num: number) => (num < 10 ? `0${num}` : num);
+
 export const getFormattedDate = (date: Date | string): string => {
   const currentDate = new Date(date);
   const day = currentDate.getDate();
   const month = currentDate.getMonth() + 1;
 
-  return `${day < 10 ? `0${day}` : day}/${
-    month < 10 ? `0${month}` : month
-  }/${currentDate.getFullYear()}`;
+  return `${formatDigits(day)}/${formatDigits(
+    month
+  )}/${currentDate.getFullYear()}`;
 };
 
 export const getFormattedMinutes = (milliseconds: number): string => {
-  const totalSeconds = Math.trunc(milliseconds / 1000);
-  const minutes = Math.trunc(totalSeconds / 60);
-  const seconds = totalSeconds - minutes * 60;
+  let seconds = milliseconds / 1000;
 
-  return `${minutes < 10 ? `0${minutes}` : minutes}:${
-    seconds < 10 ? `0${seconds}` : seconds
-  }`;
+  const hours = parseInt(`${seconds / 3600}`); // 3,600 seconds in 1 hour
+  seconds = seconds % 3600; // seconds remaining after extracting hours
+  const minutes = parseInt(`${seconds / 60}`); // 60 seconds in 1 minute
+  seconds = Math.round(seconds % 60);
+
+  return (
+    formatDigits(hours) +
+    ":" +
+    formatDigits(minutes) +
+    ":" +
+    formatDigits(seconds)
+  );
 };
 
 export const isTimestampExpired = (timestamp: number) => {
